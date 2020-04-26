@@ -38,13 +38,13 @@ const sequelize = new Sequelize({
   try {
       await sequelize.authenticate();
       console.log('Connection has been established successfully.');
-      const userById = await User.findByPk(1);
-      console.log(userById.toJSON());
+      // const userById = await User.findByPk(1);
+      // console.log(userById.toJSON());
 
-      const courseById = await Course.findByPk(1);
-      console.log(courseById.toJSON());
-      const coursesById = await Course.findAll();
-      console.log(coursesById);
+      // const courseById = await Course.findByPk(1);
+      // console.log(courseById.toJSON());
+      // const coursesById = await Course.findAll();
+      // console.log(coursesById);
   } catch (error) {
       console.error('Unable to connect to the database:', error);
   }

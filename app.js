@@ -7,8 +7,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 
-// const indexRouter = require('./routes/index');
-// const usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const coursesRouter = require('./routes/courses');
 
 // Variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
@@ -20,13 +21,17 @@ const app = express();
 app.use(morgan('dev'));
 
 // TODO setup your api routes here
+app.use('/api', indexRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/courses', coursesRouter);
 
-// Setup a friendly greeting for the root route
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Welcome to the REST API project!',
-  });
-});
+
+// // Setup a friendly greeting for the root route
+// app.get('/', (req, res) => {
+//   res.json({
+//     message: 'Welcome to the REST API project!',
+//   });
+// });
 
 // Send 404 if no other route matched
 app.use((req, res) => {

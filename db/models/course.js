@@ -25,6 +25,20 @@ module.exports = (sequelize) => {
         materialsNeeded: {
             type: Sequelize.STRING,
         },
+        // steps
+        // (Array of objects that include 
+        // stepNumber (Number),
+        // title (String, required) and
+        // description (String, required)
+        // properties)
+        // steps: {
+        //     type: Sequelize.ARRAY(Sequelize.ABSTRACT),
+        // },
+        // reviews
+        // (Array of ObjectId values, _id values from the reviews collection)
+        // reviews: {
+        //     type: Sequelize.ARRAY(Sequelize.ABSTRACT),
+        // },
         createdAt: {
             type: Sequelize.DATE,
             allowNull: false,
@@ -41,6 +55,12 @@ module.exports = (sequelize) => {
     { 
         sequelize 
     });
+
+    // Within your Course model, define a BelongsTo association between 
+    // your Course and User models (i.e. a "Course" belongs to a single "User"):
+    Course.associate = (models) => {
+        Course.belongsTo(models.User, { foreignKey: 'id' });
+    };
     
     return Course;
 };
