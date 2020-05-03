@@ -39,15 +39,17 @@ module.exports = (sequelize) => {
             type: Sequelize.DATE,
             allowNull: false,
         },
-    },
-    { 
-        sequelize 
-    });
+    }, { sequelize });
 
     // Within your User model, define a HasMany association between 
     // your User and Course models (i.e. a "User" has many "Courses"):
     User.associate = (models) => {
-        User.hasMany(models.Course, { foreignKey: 'id' });
+        User.hasMany(models.Course, { 
+            as: 'user', //alias
+            foreignKey: {
+                fieldName: 'userId',
+            },
+        });
     };
     
     return User;
