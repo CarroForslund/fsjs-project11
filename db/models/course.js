@@ -3,12 +3,6 @@ const Sequelize = require('sequelize');
 module.exports = (sequelize) => {
     class Course extends Sequelize.Model {}
     Course.init({
-        // Set custom primary key column
-        id: {
-            type: Sequelize.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-        },
         title: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -33,12 +27,6 @@ module.exports = (sequelize) => {
             type: Sequelize.DATE,
             allowNull: false,
         },
-        userId: {
-            type: Sequelize.INTEGER,
-            foreignKey: true,
-            allowNull: false,
-            defaultValue: -1,
-        },
     }, { sequelize });
 
     // Within your Course model, define a BelongsTo association between 
@@ -47,11 +35,13 @@ module.exports = (sequelize) => {
         Course.belongsTo(models.User, { 
             as: 'user',
             foreignKey: {
-                fieldValue: 'userId',
-                allowNull: false,
-            }});
+                name: 'userId',
+            },
+            type: Sequelize.INTEGER,
+            defaultValue: -1,
+            allowNull: false,
+        });
     };
-    
-    
+     
     return Course;
 };

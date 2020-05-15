@@ -20,6 +20,9 @@ const app = express();
 // Setup morgan which gives us http request logging
 app.use(morgan('dev'));
 
+// Setup json
+app.use(express.json());
+
 // TODO setup your api routes here
 app.use('/api', indexRouter);
 app.use('/api/users', usersRouter);

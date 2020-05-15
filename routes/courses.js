@@ -54,8 +54,8 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
 // sets the Location header to the URI for the course, 
 // and returns no content
 router.post('/api/courses', asyncHandler(async (req, res, next) => {
-  //Save user to db
-  let user;
+  //Save course to db
+  let course;
   try {
     course = await Courses.create(req.body);
     res.status(201).redirect('/' + course.id);

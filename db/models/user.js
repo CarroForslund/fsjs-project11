@@ -1,16 +1,8 @@
 const Sequelize = require('sequelize');
 
-
-
 module.exports = (sequelize) => {
     class User extends Sequelize.Model {}
     User.init({
-        // Set custom primary key column
-        id: {
-            type: Sequelize.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-        },
         firstName: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -19,6 +11,7 @@ module.exports = (sequelize) => {
         lastName: {
             type: Sequelize.STRING,
             allowNull: false,
+            unique: true,
             defaultValue: "",
         },
         emailAddress: {
@@ -47,7 +40,7 @@ module.exports = (sequelize) => {
         User.hasMany(models.Course, { 
             as: 'user', //alias
             foreignKey: {
-                fieldName: 'userId',
+                name: 'userId',
             },
         });
     };
