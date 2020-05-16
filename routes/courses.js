@@ -53,12 +53,12 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
 // 201 - Creates a course, 
 // sets the Location header to the URI for the course, 
 // and returns no content
-router.post('/api/courses', asyncHandler(async (req, res, next) => {
+router.post('/', asyncHandler(async (req, res, next) => {
   //Save course to db
   let course;
   try {
-    course = await Courses.create(req.body);
-    res.status(201).redirect('/' + course.id);
+    course = await Course.create(req.body);
+    res.status(201).location('/api/courses/' + course.id).end();
   } catch (error){
     if(error.name === 'SequelizeValidationError') {
         // DO SOMETHING...
