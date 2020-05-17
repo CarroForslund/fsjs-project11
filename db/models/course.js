@@ -15,9 +15,11 @@ module.exports = (sequelize) => {
         },
         estimatedTime: {
             type: Sequelize.STRING,
+            allowNull: true,
         },
         materialsNeeded: {
             type: Sequelize.STRING,
+            allowNull: true,
         }
     }, { sequelize });
 
@@ -28,9 +30,9 @@ module.exports = (sequelize) => {
             as: 'user',
             foreignKey: {
                 fieldName: 'userId',
-                allowNull: false,
-                type: Sequelize.INTEGER,
-                defaultValue: -1,
+                // allowNull: false,
+                // type: Sequelize.INTEGER,
+                // defaultValue: -1,
             },
             
         });

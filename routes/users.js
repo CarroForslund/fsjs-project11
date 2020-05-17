@@ -102,12 +102,7 @@ router.post('/', asyncHandler(async (req, res, next) => {
     res.status(201).location('/').end();
     
   } catch (error){
-    if(error.name === 'SequelizeValidationError') {
-      // DO SOMETHING...
-      
-    } else {
       next(error);
-    } 
   };
 }));
 
