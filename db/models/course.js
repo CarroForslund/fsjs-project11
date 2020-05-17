@@ -28,10 +28,11 @@ module.exports = (sequelize) => {
             as: 'user',
             foreignKey: {
                 fieldName: 'userId',
+                allowNull: false,
                 type: Sequelize.INTEGER,
                 defaultValue: -1,
-                allowNull: false,
             },
+            
         });
     };
      

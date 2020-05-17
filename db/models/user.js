@@ -11,7 +11,6 @@ module.exports = (sequelize) => {
         lastName: {
             type: Sequelize.STRING,
             allowNull: false,
-            unique: true,
             defaultValue: "",
         },
         emailAddress: {
