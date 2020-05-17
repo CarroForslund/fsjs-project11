@@ -35,7 +35,8 @@ module.exports = (sequelize) => {
         Course.belongsTo(models.User, { 
             as: 'user',
             foreignKey: {
-                name: 'userId',
+                fieldName: 'userId',
+                field: 'userId',
             },
             type: Sequelize.INTEGER,
             defaultValue: -1,
