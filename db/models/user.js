@@ -17,20 +17,14 @@ module.exports = (sequelize) => {
         emailAddress: {
             type: Sequelize.STRING,
             allowNull: false,
+            unique: true,
+            isEmail: true,
             defaultValue: "",
         },
         password: {
             type: Sequelize.STRING,
             allowNull: false,
             defaultValue: "",
-        },
-        createdAt: {
-            type: Sequelize.DATE,
-            allowNull: false,
-        },
-        updatedAt: {
-            type: Sequelize.DATE,
-            allowNull: false,
         },
     }, { sequelize });
 
@@ -41,7 +35,6 @@ module.exports = (sequelize) => {
             as: 'user', //alias
             foreignKey: {
                 fieldName: 'userId',
-                field: 'userId',
             },
         });
     };

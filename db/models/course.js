@@ -18,15 +18,7 @@ module.exports = (sequelize) => {
         },
         materialsNeeded: {
             type: Sequelize.STRING,
-        },
-        createdAt: {
-            type: Sequelize.DATE,
-            allowNull: false,
-        },
-        updatedAt: {
-            type: Sequelize.DATE,
-            allowNull: false,
-        },
+        }
     }, { sequelize });
 
     // Within your Course model, define a BelongsTo association between 
@@ -36,11 +28,10 @@ module.exports = (sequelize) => {
             as: 'user',
             foreignKey: {
                 fieldName: 'userId',
-                field: 'userId',
+                type: Sequelize.INTEGER,
+                defaultValue: -1,
+                allowNull: false,
             },
-            type: Sequelize.INTEGER,
-            defaultValue: -1,
-            allowNull: false,
         });
     };
      
