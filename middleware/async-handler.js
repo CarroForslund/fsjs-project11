@@ -1,4 +1,4 @@
-var express = require('express');
+const express = require('express');
 
 // Handler function to wrap each route
 function asyncHandler(cb){

@@ -1,4 +1,3 @@
-var express = require('express');
 const db = require('../db');
 const { User } = db.models;
 const bcryptjs = require('bcryptjs');
