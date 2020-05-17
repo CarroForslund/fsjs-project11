@@ -72,13 +72,20 @@ const authenticateUser = async(req, res, next) => {
 // 200 - Returns the currently authenticated user
 router.get('/', authenticateUser, asyncHandler(async (req, res, next) => {
   try {
-    const user = req.currentUser;
-
-    res.json({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      emailAddress: user.emailAddress,
+    const currentUser = req.currentUser;
+    
+    const user = await User.findByPk(currentUser.id, {
+      attributes: {
+          exclude: [
+              'password',
+              'createdAt',
+              'updatedAt'
+          ]
+      }
     });
+
+
+    res.json(user);
   } catch (error) {
     res.status(500).json({message: error.message});
   }  

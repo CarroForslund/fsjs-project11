@@ -77,8 +77,21 @@ router.get('/', asyncHandler(async (req, res, next) => {
       {
         model: User,
         as: 'user',
+        attributes: {
+          exclude: [
+            'password',
+            'createdAt',
+            'updatedAt'
+          ]
+        }
       },
     ],
+    attributes: {
+      exclude: [
+        'createdAt',
+        'updatedAt'
+      ]
+    }
   });
   res.status(200).json(courses);
 }));
@@ -92,16 +105,24 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
       {
         model: User,
         as: 'user',
+        attributes: {
+          exclude: [
+            'password',
+            'createdAt',
+            'updatedAt'
+          ]
+        }
       },
     ],
+    attributes: {
+      exclude: [
+        'createdAt',
+        'updatedAt'
+      ]
+    }
   });
   if(course) {
-    res.status(200).json({
-      "title": course.title,
-      "description": course.description,
-      "estimatedTime": course.estimatedTime,
-      "materialsNeeded": course.materialsNeeded
-    });
+    res.status(200).json();
   } else {
     res.status(404).json({message: 'Course not found'});
   }
