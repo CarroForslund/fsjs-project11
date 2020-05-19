@@ -84,13 +84,17 @@ router.post('/', authenticateUser, asyncHandler(async (req, res, next) => {
 
     res.status(201).location('/api/courses/' + course.id).end();
   } catch (error){
+      if(error.name === 'SequelizeValidationError') {
+        res.status(400).json({ message: error.message });;
+      }
       next(error);
-  };
+  };  
 }));
 
 // PUT /api/courses/:id
 // 204 - Updates a course 
 // and returns no content
+// FIX THIS PROBLEM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 router.put('/:id', authenticateUser, asyncHandler(async (req, res, next) => {
   try {
     const course = await Course.findByPk(req.params.id);
@@ -106,16 +110,21 @@ router.put('/:id', authenticateUser, asyncHandler(async (req, res, next) => {
         course.userId = req.currentUser.id;
 
         course.save();
+        res.status(204).end();
 
       } else {
-        res.status(403).json({message: "You don't have permission to update this course."});
+        res.status(403).json({ message: "You don't have permission to update this course." });
       }
-      res.status(204).end();
+
     } else {
-      res.status(404).json({message: 'Course not found.'});
+      res.status(404).json({ message: 'Course not found.' });
     }
+
   } catch (error) {
-    res.status(500).json({message: error.message});
+    if(error.name === 'SequelizeValidationError') {
+      res.status(400).json({ message: error.message });;
+    }
+    res.status(500).json({ message: error.message });
   }
 }));
 

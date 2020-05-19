@@ -7,11 +7,23 @@ module.exports = (sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
             defaultValue: "",
+            validate: {
+                notEmpty: {
+                    args: true,
+                    msg: "Course title is required.",
+                },
+            },
         },
         description: {
             type: Sequelize.TEXT,
             allowNull: false,
             defaultValue: "",
+            validate: {
+                notEmpty: {
+                    args: true,
+                    msg: "Course description is required.",
+                },
+            },
         },
         estimatedTime: {
             type: Sequelize.STRING,
@@ -30,9 +42,6 @@ module.exports = (sequelize) => {
             as: 'user',
             foreignKey: {
                 fieldName: 'userId',
-                // allowNull: false,
-                // type: Sequelize.INTEGER,
-                // defaultValue: -1,
             },
             
         });
