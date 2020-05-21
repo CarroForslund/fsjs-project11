@@ -33,11 +33,13 @@ router.post('/', asyncHandler(async (req, res, next) => {
   let user;
   try {    
     // Get the user from the request body.
-    user = req.body;
+    user = await req.body;
 
     // Hash the new user's password.
-    user.password = bcryptjs.hashSync(user.password);
-
+    if(user.password){
+      user.password = bcryptjs.hashSync(user.password);
+    }
+    
     // Add the user to the db.
     await User.create(user);
 
@@ -45,7 +47,11 @@ router.post('/', asyncHandler(async (req, res, next) => {
     res.status(201).location('/').end();
     
   } catch (error){
-      next(error);
+      if(error.name === 'SequelizeValidationError') {
+        res.status(400).json({ message: error.message });;
+      } else {
+        next(error);
+      }
   };
 }));
 

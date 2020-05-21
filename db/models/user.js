@@ -7,26 +7,50 @@ module.exports = (sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
             defaultValue: "",
+            validate: {
+                notEmpty: {
+                    args: true,
+                    msg: "First name is required.",
+                },
+            },
         },
         lastName: {
             type: Sequelize.STRING,
             allowNull: false,
             defaultValue: "",
+            validate: {
+                notEmpty: {
+                    args: true,
+                    msg: "Last name is required.",
+                },
+            },
         },
         emailAddress: {
             type: Sequelize.STRING,
             allowNull: false,
             unique: {
                 args: true,
-                msg: 'Email address already in use!'
+                msg: "Email address already in use!",
             },
             isEmail: true,
             defaultValue: "",
+            validate: {
+                notEmpty: {
+                    args: true,
+                    msg: "Email address is required.",
+                },
+            },
         },
         password: {
             type: Sequelize.STRING,
             allowNull: false,
             defaultValue: "",
+            validate: {
+                notEmpty: {
+                    args: true,
+                    msg: "Password is required.",
+                },
+            },
         },
     }, { sequelize });
 

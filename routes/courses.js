@@ -103,17 +103,31 @@ router.put('/:id', authenticateUser, asyncHandler(async (req, res, next) => {
 
       if(course.userId == req.currentUser.id) {
 
+        if(!req.body.title || !req.body.description) {
+          res.status(400).json({ message: 'Validation error. Title and description are both required to be able to update this course.'});
+        }
+
         course.title = req.body.title;
         course.description = req.body.description;
-        course.estimatedTime = req.body.estimatedTime;
-        course.materialsNeeded = req.body.materialsNeeded;
+
+        if(req.body.estimatedTime) {
+          course.estimatedTime = req.body.estimatedTime;
+        } 
+        if(req.body.materialsNeeded){
+          course.materialsNeeded = req.body.materialsNeeded;
+        }
         course.userId = req.currentUser.id;
 
-        course.save();
+        await course.update({
+          title: course.title,
+          description: course.description,
+          estimatedTime: course.estimatedTime,
+          materialsNeeded: course.materialsNeeded,
+        });
         res.status(204).end();
 
       } else {
-        res.status(403).json({ message: "You don't have permission to update this course." });
+        res.status(403).json({ message: "You don't have permission to edit this course." });
       }
 
     } else {
